@@ -1,0 +1,25 @@
+# SKYNZ Marketing Repository .gitignore
+
+# OS Files
+.DS_Store
+Thumbs.db
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node (if using for any build tools)
+node_modules/
+npm-debug.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# No secrets in marketing repo
+.env.local
+.env.production
