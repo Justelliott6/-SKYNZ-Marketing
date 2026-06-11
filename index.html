@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYNZ - Your Page. Your Vibe. Your Stage.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0a0e27 0%, #1a0033 50%, #0a0e27 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: #fff;
+        }
+
+        /* Animated background elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, #FF006E, transparent);
+            top: -100px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, #0066FF, transparent);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: 5s;
+        }
+
+        .orb-3 {
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, #00D9FF, transparent);
+            top: 50%;
+            right: -100px;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(30px, -30px);
+            }
+        }
+
+        /* Main container */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Logo */
+        .logo-section {
+            margin-bottom: 60px;
+            animation: slideDown 1.2s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-banner {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 0 auto;
+            filter: drop-shadow(0 0 30px rgba(255, 0, 110, 0.5)) drop-shadow(0 0 60px rgba(0, 102, 255, 0.3));
+            animation: glow-pulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+            0%, 100% {
+                filter: drop-shadow(0 0 30px rgba(255, 0, 110, 0.5)) drop-shadow(0 0 60px rgba(0, 102, 255, 0.3));
+            }
+            50% {
+                filter: drop-shadow(0 0 50px rgba(255, 0, 110, 0.7)) drop-shadow(0 0 80px rgba(0, 102, 255, 0.5));
+            }
+        }
+
+        /* Tagline */
+        .tagline {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            margin: 40px 0 60px 0;
+            background: linear-gradient(90deg, #00D9FF, #FF006E, #00D9FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideUp 1.4s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Description */
+        .description {
+            font-size: 18px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: #b0b0ff;
+            margin-bottom: 50px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: slideUp 1.6s ease-out;
+        }
+
+        /* Button */
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: slideUp 1.8s ease-out;
+        }
+
+        .btn {
+            padding: 18px 50px;
+            font-size: 16px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF006E, #00D9FF);
+            color: #000;
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.5), 0 0 60px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 50px rgba(255, 0, 110, 0.7), 0 0 80px rgba(0, 217, 255, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00D9FF;
+            border: 2px solid #00D9FF;
+            box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(0, 217, 255, 0.6);
+        }
+
+        .btn-secondary:active {
+            transform: translateY(-1px);
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 30px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            z-index: 1;
+        }
+
+        .footer-text {
+            font-style: italic;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .tagline {
+                font-size: 18px;
+                letter-spacing: 4px;
+            }
+
+            .description {
+                font-size: 16px;
+            }
+
+            .btn {
+                padding: 14px 40px;
+                font-size: 14px;
+            }
+
+            .logo-banner {
+                max-width: 400px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+            }
+
+            .tagline {
+                font-size: 14px;
+                letter-spacing: 2px;
+                margin: 30px 0 40px 0;
+            }
+
+            .description {
+                font-size: 14px;
+                margin-bottom: 40px;
+            }
+
+            .button-group {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 14px 30px;
+                font-size: 13px;
+            }
+
+            .logo-section {
+                margin-bottom: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="bg-elements">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Logo -->
+        <div class="logo-section">
+            <img src="SKYNZlogobanner.png" alt="SKYNZ Logo" class="logo-banner">
+        </div>
+
+        <!-- Tagline -->
+        <div class="tagline">Your Page. Your Vibe. Your Stage.</div>
+
+        <!-- Description -->
+        <div class="description">
+            <p>Own your creator page as an NFT. Keep 95% of revenue forever. Earn passive income from secondary market sales.</p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="window.location.href='creator-setup.html'">
+                Explore Demo
+            </button>
+            <button class="btn btn-secondary" onclick="window.location.href='https://github.com/Justelliott6/-SKYNZ-Marketing'">
+                View on GitHub
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p class="footer-text">Still writing code after 8 months 🚀</p>
+    </div>
+</body>
+</html>
