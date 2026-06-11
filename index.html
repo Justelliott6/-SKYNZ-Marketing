@@ -244,6 +244,70 @@
             font-style: italic;
         }
 
+        /* Preview Section */
+        .preview-section {
+            margin-top: 100px;
+            padding: 60px 40px;
+            background: rgba(0, 20, 40, 0.4);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            animation: slideUp 2s ease-out;
+        }
+
+        .preview-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+            background: linear-gradient(90deg, #00D9FF, #FF006E);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-image-container {
+            position: relative;
+            margin: 0 auto 30px;
+            max-width: 900px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 50px rgba(0, 217, 255, 0.3), 0 0 100px rgba(255, 0, 110, 0.2);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .preview-image-container:hover .preview-image {
+            transform: scale(1.02);
+        }
+
+        .preview-subtitle {
+            font-size: 16px;
+            color: #b0b0ff;
+            font-weight: 300;
+        }
+
+        @media (max-width: 768px) {
+            .preview-section {
+                margin-top: 60px;
+                padding: 40px 20px;
+            }
+
+            .preview-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .preview-subtitle {
+                font-size: 14px;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .tagline {
@@ -329,6 +393,15 @@
             <button class="btn btn-secondary" onclick="window.location.href='https://github.com/Justelliott6/-SKYNZ-Marketing'">
                 View on GitHub
             </button>
+        </div>
+
+        <!-- Platform Preview -->
+        <div class="preview-section">
+            <h2 class="preview-title">See SKYNZ in Action</h2>
+            <div class="preview-image-container">
+                <img src="SKYNZPROFILEPAGE.png" alt="SKYNZ Platform Preview" class="preview-image">
+            </div>
+            <p class="preview-subtitle">Create interactive creator pages with analytics, live chat, and music integration</p>
         </div>
     </div>
 
