@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKYNZ Platform - Creator Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Arial', sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            padding: 40px;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: 100vh;
+        }
+
+        /* Left Panel - Creator Profile */
+        .left-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .panel-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-small {
+            width: 80px;
+            height: auto;
+            margin: 0 auto 15px;
+        }
+
+        .panel-header h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #00D9FF;
+            text-transform: uppercase;
+        }
+
+        /* Creator Card */
+        .creator-card {
+            border: 1px solid rgba(255, 0, 110, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            background: rgba(0, 10, 30, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .creator-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF006E, #0066FF);
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            border: 2px solid #00D9FF;
+        }
+
+        .creator-name {
+            font-size: 18px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .creator-handle {
+            font-size: 13px;
+            color: #00D9FF;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .creator-status {
+            text-align: center;
+            font-size: 12px;
+            color: #4ADE80;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .creator-bio {
+            font-size: 13px;
+            color: #b0b0ff;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: #00D9FF;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .stat-indicator {
+            font-size: 10px;
+            color: #4ADE80;
+            margin-top: 3px;
+        }
+
+        /* Buttons */
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF006E, #0066FF);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(255, 0, 110, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #00D9FF;
+            border: 1px solid #00D9FF;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+            box-shadow: 0 0 25px rgba(0, 217, 255, 0.4);
+        }
+
+        /* Right Panel - Live Page Preview */
+        .right-panel {
+            border: 2px solid rgba(0, 217, 255, 0.3);
+            border-radius: 20px;
+            background: rgba(0, 10, 30, 0.4);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            overflow-y: auto;
+            max-height: calc(100vh - 80px);
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.2);
+        }
+
+        .page-title-section h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .page-title-section p {
+            font-size: 13px;
+            color: #00D9FF;
+        }
+
+        .page-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.3);
+            color: #00D9FF;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(0, 217, 255, 0.2);
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        /* Live Stream Container */
+        .stream-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(255, 0, 110, 0.1));
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stream-placeholder {
+            text-align: center;
+        }
+
+        .stream-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        .stream-text {
+            font-size: 14px;
+            color: #b0b0ff;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .chat-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+        }
+
+        .chat-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .online-count {
+            font-size: 12px;
+            color: #4ADE80;
+            font-weight: 600;
+        }
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-bottom: 12px;
+        }
+
+        .chat-message {
+            font-size: 12px;
+            line-height: 1.4;
+            color: #b0b0ff;
+        }
+
+        .chat-user {
+            color: #00D9FF;
+            font-weight: 600;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input input {
+            flex: 1;
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 6px;
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 12px;
+        }
+
+        .chat-input input::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .chat-send {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #FF006E, #0066FF);
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 0, 110, 0.3);
+        }
+
+        /* Analytics */
+        .analytics {
+            background: rgba(0, 217, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .analytics-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .analytics-item {
+            background: rgba(0, 102, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .analytics-label {
+            font-size: 11px;
+            color: #00D9FF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+
+        .analytics-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .analytics-change {
+            font-size: 10px;
+            color: #4ADE80;
+            margin-top: 3px;
+        }
+
+        /* Scrollbar */
+        .right-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .right-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .right-panel::-webkit-scrollbar-thumb {
+            background: rgba(0, 217, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        .right-panel::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 217, 255, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .right-panel {
+                max-height: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .page-title-section h2 {
+                font-size: 20px;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Panel -->
+        <div class="left-panel">
+            <div class="panel-header">
+                <img src="SKYNZlogobanner.png" alt="SKYNZ" class="logo-small" style="max-width: 120px;">
+            </div>
+
+            <!-- Creator Card -->
+            <div class="creator-card">
+                <div class="creator-avatar">🎵</div>
+                <div class="creator-name">Elliott Palmer</div>
+                <div class="creator-handle">@justelliott6</div>
+                <div class="creator-status">✓ Live Creator</div>
+                <div class="creator-bio">Electronic music producer & night drive curator. Creating vibes for the late night and early morning.</div>
+
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-label">Status</div>
+                        <div class="stat-value" style="color: #4ADE80;">● LIVE NOW</div>
+                        <div class="stat-indicator">Chat active</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Viewers</div>
+                        <div class="stat-value">1,248</div>
+                        <div class="stat-indicator">Watching live</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Uptime</div>
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-indicator">Always live</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Vibe</div>
+                        <div class="stat-value" style="color: #FF006E;">Neon</div>
+                        <div class="stat-indicator">High energy</div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary">Follow</button>
+                    <button class="btn btn-secondary">Share</button>
+                    <button class="btn btn-secondary" onclick="window.location.href='landing-pro.html'">← Back</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+            <!-- Page Header -->
+            <div class="page-header">
+                <div class="page-title-section">
+                    <h2>Night Vibe Lounge ✓</h2>
+                    <p>by Elliott Palmer • @justelliott6</p>
+                </div>
+                <div class="page-actions">
+                    <button class="action-btn">🔗</button>
+                    <button class="action-btn">📤</button>
+                </div>
+            </div>
+
+            <!-- Stream Container -->
+            <div class="stream-container">
+                <div class="stream-placeholder">
+                    <div class="stream-icon">🎬</div>
+                    <div class="stream-text">Live Stream Preview</div>
+                </div>
+            </div>
+
+            <!-- Chat Section -->
+            <div class="chat-section">
+                <div class="chat-header">
+                    <div class="chat-title">💬 Live Chat</div>
+                    <div class="online-count">127 online</div>
+                </div>
+
+                <div class="chat-messages">
+                    <div class="chat-message"><span class="chat-user">LunaBeat</span> this track is unreal 🔥</div>
+                    <div class="chat-message"><span class="chat-user">SynthWave89</span> vibes are immaculate</div>
+                    <div class="chat-message"><span class="chat-user">NeonDream</span> perfect night drive music 🌙</div>
+                    <div class="chat-message"><span class="chat-user">NightOwl</span> this is my go-to every night</div>
+                    <div class="chat-message"><span class="chat-user">PulseRider</span> love the energy here!</div>
+                </div>
+
+                <div class="chat-input">
+                    <input type="text" placeholder="Say something...">
+                    <button class="chat-send">→</button>
+                </div>
+            </div>
+
+            <!-- Analytics -->
+            <div class="analytics">
+                <div class="analytics-title">📊 Analytics</div>
+                <div class="analytics-grid">
+                    <div class="analytics-item">
+                        <div class="analytics-label">Page Views</div>
+                        <div class="analytics-value">18,742</div>
+                        <div class="analytics-change">↑ 24.6% vs yesterday</div>
+                    </div>
+                    <div class="analytics-item">
+                        <div class="analytics-label">Unique Visitors</div>
+                        <div class="analytics-value">9,513</div>
+                        <div class="analytics-change">↑ 18.3% vs yesterday</div>
+                    </div>
+                    <div class="analytics-item">
+                        <div class="analytics-label">Watch Time</div>
+                        <div class="analytics-value">5h 42m</div>
+                        <div class="analytics-change">↑ 15.7% vs yesterday</div>
+                    </div>
+                    <div class="analytics-item">
+                        <div class="analytics-label">Chat Messages</div>
+                        <div class="analytics-value">2,843</div>
+                        <div class="analytics-change">↑ 32.1% vs yesterday</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
